@@ -20,17 +20,40 @@
               <Icon type="ios-paper"></Icon>
               Item 4
             </MenuItem>
+            <MenuItem name="more" class="menu-item" to="/main/more">
+              <Icon type="ios-more" />
+              More
+            </MenuItem>
           </div>
         </Menu>
       </Header>
       <Content>
         <div id="map">
+          <div class="map-ctl-bottom-left">
+            <div class="map-ctl-locate">
+              <Button shape="circle" icon="md-locate" @click="locate"></Button>
+            </div>
+          </div>
+          <div class="map-ctl-bottom-right">
+            <div class="map-ctl-search">
+              <Button shape="circle" icon="ios-search" @click="search"></Button>
+            </div>
+          </div>
+          <div class="map-btn-bottom">
+            <!--icon-shangbaowenti-->
+            <Button type="text" size="large" custom-icon="iconfont icon-shangbaowenti" @click="report">Report</Button>
+            <Icon size="large" custom="i-icon iconfont icon-anjianfengexian" />
+            <Button type="text" size="large" custom-icon="iconfont icon-lujingfenxi" @click="showTourRoute">Route</Button>
+          </div>
+          <div class="map-route-view-bottom">
+            <router-view></router-view>
+          </div>
         </div>
       </Content>
-      <Footer>
-      <router-link to="/search">search</router-link>
-      <router-link to="/details">details</router-link>
-      </Footer>
+      <!--<Footer>-->
+      <!--<router-link to="/search">search</router-link>-->
+      <!--<router-link to="/details">details</router-link>-->
+      <!--</Footer>-->
     </Layout>
   </div>
 </template>
@@ -45,25 +68,43 @@ export default {
   name: 'Main',
   mounted () {
     this.init()
+    if (this.curPoi.showRoute) {
+      console.log('showRoute')
+    }
+    if (this.curPoi.highLight) {
+      console.log('highLight')
+    }
+    console.log('mounted')
+  },
+  created () {
+    console.log('created')
   },
   methods: {
     init () {
       this.initMap()
     },
     initMap () {
+      var me = this
       // 0.也可以使用这种方式引入mapbox
       // var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js')
       // 1.create a map
       mapboxgl.accessToken = 'pk.eyJ1IjoidHV0dXRvdG8iLCJhIjoiY2l3MnhmNWs1MDFhczJ5bXcxZnBoYnpieCJ9.4FSqySqEd1cYPaxK5ltf1w'
       var map = new mapboxgl.Map({
         container: 'map', // container id
-        style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+        style: 'mapbox://styles/mapbox/outdoors-v10', // stylesheet location
+        // style: 'mapbox://styles/mapbox/navigation-guidance-night-v2',
         center: [116.1, 40.1], // starting position [lng, lat]
-        zoom: 7, // starting zoom
+        zoom: 8, // starting zoom
         maxZoom: 15
       })
       // 2.add control
       map.addControl(new mapboxgl.NavigationControl())
+      // map.addControl(new mapboxgl.GeolocateControl({
+      //   positionOptions: {
+      //     enableHighAccuracy: true
+      //   },
+      //   trackUserLocation: true
+      // }))
       // 3.set map bound
       // an array of LngLatLike objects in [sw, ne] order
       var bounds = new mapboxgl.LngLatBounds(
@@ -73,6 +114,7 @@ export default {
       map.setMaxBounds(bounds)
       // 4.linster click event
       map.on('click', function (event) {
+        me.$router.push('/')
         console.log(event.lngLat.lng.toFixed(3) + ', ' + event.lngLat.lat.toFixed(3))
       })
       // 5.add a maker to map
@@ -100,18 +142,40 @@ export default {
         .setPopup(popup)
         .setLngLat([116.1, 40.1])
         .addTo(map)
+    },
+    more () {
+      console.log('show more type of poi')
+    },
+    locate () {
+      console.log('locate the user')
+    },
+    search () {
+      this.$router.push('/search')
+    },
+    report () {
+      this.$router.push('/report')
+    },
+    showTourRoute () {
+      this.$router.push('/main/tourroutedetails')
+      // this.$router.push('/main/tourroutedetails')
     }
   }
 }
 </script>
 
 <style scoped>
+.icon {
+  width: 1em; height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
 .header{
   padding: 0 10px;
 }
 #map{
    width: 100%;
-   height: 540px;
+  min-height: 600px;
 }
 .layout{
   border: 1px solid #d7dde4;
@@ -127,5 +191,50 @@ export default {
 }
 .menu-item{
   padding: 0 5px;
+}
+.map-ctl-bottom-left,.map-ctl-bottom-right{
+  bottom: 100px;
+  position: absolute;
+  z-index: 2;
+}
+.map-ctl-bottom-left{
+  left: 0;
+}
+.map-ctl-bottom-right{
+  right: 0;
+}
+.map-ctl-locate,.map-ctl-search{
+  width: auto;
+  margin: 10px;
+  position: relative;
+}
+.map-btn-bottom {
+  height: 50px;
+  line-height: 50px;
+  width: 90%;
+  bottom: 30px;
+  position: absolute;
+  z-index: 2;
+  margin: 0 5%;
+  background-color: #f8f8f9;
+  border: 1px solid #dcdee2;
+  border-radius: 5px;
+  text-align: center;
+}
+.map-route-view-bottom{
+  /*height: 30px;*/
+  /*line-height: 50px;*/
+  /*width: 100%;*/
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  z-index: 3;
+  /*flex: auto;*/
+  /*margin: 0 5%;*/
+  /*background-color: #aaa;*/
+  /*border: 1px solid #dcdee2;*/
+  /*border-radius: 5px;*/
+  /*text-align: center;*/
 }
 </style>

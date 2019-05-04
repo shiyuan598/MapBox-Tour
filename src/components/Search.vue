@@ -1,15 +1,13 @@
 <template>
   <div>
-    <!--<Input search enter-button placeholder="Enter something..." />-->
     <Input clearable enter-button="ok"  placeholder="Enter something..." class="search" />
-    <Button icon="ios-search" type="primary">Search</Button>
+    <Button icon="ios-search" type="primary" @click="search">Search</Button>
     <Button @click="cancel">Cancel</Button>
-    <Divider orientation="left">hot place</Divider>
-    <Tag>标签一</Tag>
-    <Tag>标签二</Tag>
-    <Tag>标签三</Tag>
-    <Tag>标签四</Tag>
-    <Table :columns="columns1" :data="data1" :show-header="false" v-show="false"></Table>
+    <div v-if="showTag">
+      <Divider orientation="left">hot place</Divider>
+      <Button class="tag" size="small" :key="key" v-for="(tag,key) in tags" @click="showInMap(tag.id)">{{tag.name}}</Button>
+    </div>
+    <Table :columns="columns1" :data="data1" :show-header="false" v-if="showTable"></Table>
   </div>
 </template>
 
@@ -18,6 +16,22 @@ export default {
   name: 'Search',
   data () {
     return {
+      showTag: true,
+      showTable: false,
+      tags: [
+        {
+          name: 'tag1',
+          id: '01'
+        },
+        {
+          name: 'tag2',
+          id: '02'
+        },
+        {
+          name: 'tag3',
+          id: '03'
+        }
+      ],
       columns1: [
         {
           title: 'Name',
@@ -61,7 +75,17 @@ export default {
     }
   },
   methods: {
+    search () {
+      this.showTag = false
+      this.showTable = true
+    },
     cancel () {
+      this.$router.push('/')
+    },
+    showInMap (id) {
+      debugger
+      this.curPoi.id = id
+      this.curPoi.highLight = true
       this.$router.push('/')
     }
   }
@@ -71,5 +95,10 @@ export default {
 <style scoped>
 .search{
   width: calc(100% - 170px);
+}
+.tag{
+  margin-left: 3px;
+  border: 1px solid #e8eaec;
+  background: #f7f7f7
 }
 </style>

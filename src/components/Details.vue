@@ -5,28 +5,28 @@
         <Button shape="circle" icon="ios-download-outline" type="primary" class="btn-control"></Button>
       </div>
       <div class="right">
-        <h2>Lorem ipsum dolor sit.</h2>
+        <h2>{{name}}</h2>
         <br>
         <Button shape="circle">
-          Category
+          {{catagory}}
         </Button>
         <br><br>
         <Button type="text" class="btn-info">Amet beatae consequuntur dicta</Button>
       </div>
     </div>
     <div class="bottom">
-      <Slider value="25"></Slider>
+      <Slider v-model="value1"></Slider>
     </div>
     <div class="layout">
       <Layout>
         <Content>
           <div class="info-text">
-            <h3>Lorem ipsum dolor sit amet</h3>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet beatae consequuntur dicta, eaque eos expedita illum iste non numquam perferendis placeat porro praesentium quam quasi reprehenderit sed temporibus, totam, voluptas.
+            <h3>{{name}}</h3>
+            {{desc}}
           </div>
         </Content>
         <Footer>
-          <Button type="success" long>SUBMIT</Button>
+          <Button type="success" long @click="navigate">Navigate</Button>
           <br><br>
           <Button type="error" long @click="cancel">Cancel</Button>
         </Footer>
@@ -38,7 +38,25 @@
 <script>
 export default {
   name: 'Details',
+  data () {
+    return {
+      value1: 25,
+      id: this.curPoi.id,
+      name: this.curPoi.name,
+      catagory: this.curPoi.catagory,
+      desc: this.curPoi.desc,
+      lng: this.curPoi.lng,
+      lat: this.curPoi.lat,
+      img: this.curPoi.img,
+      audio: this.curPoi.audio,
+      showRoute: this.curPoi.showRoute
+    }
+  },
   methods: {
+    navigate () {
+      this.curPoi.showRoute = true
+      this.$router.push('/')
+    },
     cancel () {
       this.$router.push('/')
     }
