@@ -8,8 +8,8 @@ import 'iview/dist/styles/iview.css'
 import './assets/iconfont/iconfont.css'
 
 import VueResource from 'vue-resource'
-import axios from 'axios'
-import ajax from './util/Ajax'
+// import axios from 'axios'
+// import ajax from './util/Ajax'
 Vue.config.productionTip = false
 
 Vue.use(VueResource)
@@ -34,25 +34,25 @@ new Vue({
   components: { App },
   template: '<App/>',
   mounted () {
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
-      .then(response => response.json())
-      .then(json => console.log(json))
-    this.$http.get('https://jsonplaceholder.typicode.com/users')
-      .then((data) => {
-        console.log(data.body)
-        this.users = data.body
-      })
-    axios.get('https://jsonplaceholder.typicode.com/users').then(res => {
-      // console.log(res)
-      res = ''
-    })
-
-    ajax({
-      method: 'get',
-      url: 'https://jsonplaceholder.typicode.com/users'
-    }).then(res => {
-      console.log('ajax...')
-      console.log(res.data)
-    })
+    // fetch('https://jsonplaceholder.typicode.com/todos/1')
+    //   .then(response => response.json())
+    //   .then(json => console.log(json))
+    // this.$http.get('https://jsonplaceholder.typicode.com/users')
+    //   .then((data) => {
+    //     console.log(data.body)
+    //     this.users = data.body
+    //   })
+    // axios.get('https://jsonplaceholder.typicode.com/users').then(res => {
+    //   // console.log(res)
+    //   res = ''
+    // })
+    //
+    // ajax({
+    //   method: 'get',
+    //   url: 'https://jsonplaceholder.typicode.com/users'
+    // }).then(res => {
+    //   console.log('ajax...')
+    //   console.log(res.data)
+    // })
   }
 })

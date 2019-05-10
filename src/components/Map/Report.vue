@@ -82,6 +82,7 @@ export default {
   margin-top: 25px;
 }
 .tag{
+  height: 30px;
   width: 60px;
   margin-right: 5px;
 }

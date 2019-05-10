@@ -157,7 +157,6 @@ export default {
     },
     showTourRoute () {
       this.$router.push('/main/tourroutedetails')
-      // this.$router.push('/main/tourroutedetails')
     }
   }
 }
@@ -175,7 +174,7 @@ export default {
 }
 #map{
    width: 100%;
-  min-height: 600px;
+   min-height: 670px;
 }
 .layout{
   border: 1px solid #d7dde4;
@@ -222,19 +221,10 @@ export default {
   text-align: center;
 }
 .map-route-view-bottom{
-  /*height: 30px;*/
-  /*line-height: 50px;*/
-  /*width: 100%;*/
   left: 0;
   right: 0;
   bottom: 0;
   position: absolute;
   z-index: 3;
-  /*flex: auto;*/
-  /*margin: 0 5%;*/
-  /*background-color: #aaa;*/
-  /*border: 1px solid #dcdee2;*/
-  /*border-radius: 5px;*/
-  /*text-align: center;*/
 }
 </style>
