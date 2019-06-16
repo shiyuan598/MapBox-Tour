@@ -150,7 +150,7 @@ export default {
         anchor: 'right',
         offset: -0,
         closeButton: false
-      }).setDOMContent(this.$refs.mapPopup)
+      }).setDOMContent(this.$refs.mapPopup) // dom
       new mapboxgl.Marker(el)
         .setPopup(popup2)
         .setLngLat([116.083, 40.063])
