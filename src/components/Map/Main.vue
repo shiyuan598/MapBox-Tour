@@ -55,6 +55,13 @@
       <!--<router-link to="/details">details</router-link>-->
       <!--</Footer>-->
     </Layout>
+    <div ref="mapPopup" id="map-popup" class="popup-content-container">
+      <div class="popup-title">笨娜娜</div>
+      <div class="popup-content">
+        <Icon type="logo-apple" />
+        <Icon type="md-aperture" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -138,9 +145,15 @@ export default {
       el.style.backgroundRepeat = 'no-repeat'
       el.style.width = '20px'
       el.style.height = '20px'
+      var popup2 = new mapboxgl.Popup({
+        className: 'my-class',
+        anchor: 'right',
+        offset: -0,
+        closeButton: false
+      }).setDOMContent(this.$refs.mapPopup)
       new mapboxgl.Marker(el)
-        .setPopup(popup)
-        .setLngLat([116.1, 40.1])
+        .setPopup(popup2)
+        .setLngLat([116.083, 40.063])
         .addTo(map)
     },
     more () {
@@ -226,5 +239,15 @@ export default {
   bottom: 0;
   position: absolute;
   z-index: 3;
+}
+.popup-content-container{
+  background-color: #17233d;
+  color: #fff;
+  font-size: 1rem;
+  padding: 5px;
+}
+
+.mapboxgl-popup-content {
+padding: 0px;
 }
 </style>
